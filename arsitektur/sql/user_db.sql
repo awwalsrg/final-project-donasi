@@ -16,12 +16,38 @@ CREATE TABLE user_prefered_categories (
     user_id BIGINT NOT NULL,
     category_id BIGINT NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-
-    CONSTRAINT upc_user_fk
-        FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
-    
-    CONSTRAINT upc_user_category_unique
-        UNIQUE (user_id, category_id)
+    CONSTRAINT upc_user_fk FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    CONSTRAINT upc_user_category_unique UNIQUE (user_id, category_id)
 );
 
 CREATE INDEX idx_upc_category ON user_prefered_categories (category_id);
+
+INSERT INTO
+    users (
+        name,
+        email,
+        password,
+        role,
+        created_at
+    )
+VALUES (
+        'Budi Santoso',
+        'budi@example.com',
+        '$2a$12$e0MYzXyjpJS7Pd0RVvHwHe...',
+        'user',
+        NOW()
+    ),
+    (
+        'Siti Aminah',
+        'siti@example.com',
+        '$2a$12$e0MYzXyjpJS7Pd0RVvHwHe...',
+        'user',
+        NOW()
+    ),
+    (
+        'Admin Donasi',
+        'admin@example.com',
+        '$2a$12$e0MYzXyjpJS7Pd0RVvHwHe...',
+        'admin',
+        NOW()
+    );
