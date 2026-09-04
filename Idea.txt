@@ -1,0 +1,27 @@
+TOPIC: Platform Kampanye dan Donasi
+IDE: Social Donation Platform API
+
+Overview: A RESTful microservices API for a curated donation platform. Users browse ongoing campaigns by cause, submit donations that an admin verifies before they count toward a campaign total, and follow the causes they care about — the system emails them whenever a matching campaign opens.
+
+Technology Stack:
+
+Backend: Golang with the Echo framework
+Architecture: Microservices — 3 services behind an API gateway
+Database: PostgreSQL with GORM
+Authentication: JWT with role-based access (user / admin)
+Deployment: Docker and GCP
+
+Database details:
+Database-per-service. Three separate PostgreSQL databases — users_db, campaigns_db, donations_db — each owned by one service with its own credentials, co-located in a single Postgres instance. No foreign keys cross a service boundary; referential integrity there is enforced in application code.
+
+3rd Party API Integration:
+Brevo transactional email API, used to notify users when a campaign matching their preferred category is posted.
+
+Development IN SCOPE:
+
+User registration and JWT authentication, with user and admin roles
+Campaign management: create, update, close — with donation target, deadline, and categories
+Donation submission with an admin verification workflow
+Public donor list per campaign, with an anonymous option
+Category preferences driving targeted email notifications
+Automatic campaign closing when the deadline passes
