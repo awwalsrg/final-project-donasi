@@ -10,6 +10,8 @@ type UserRepository interface {
 	Create(user *entity.User) error
 	FindByEmail(email string) (*entity.User, error)
 	FindByID(id uint) (*entity.User, error)
+	// Tambahan untuk fitur Manage Profile
+	Update(user *entity.User) error
 }
 
 type userRepository struct {
@@ -40,4 +42,9 @@ func (r *userRepository) FindByID(id uint) (*entity.User, error) {
 		return nil, err
 	}
 	return &user, nil
+}
+
+// Tambahan: Update profil user
+func (r *userRepository) Update(user *entity.User) error {
+	return r.db.Save(user).Error
 }

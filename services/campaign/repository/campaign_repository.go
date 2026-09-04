@@ -10,6 +10,8 @@ type CampaignRepository interface {
 	FindAll() ([]entity.Campaign, error)
 	FindByID(id uint) (*entity.Campaign, error)
 	Create(campaign *entity.Campaign) error
+	// Tambahan untuk fitur Update & Close Campaign
+	Update(campaign *entity.Campaign) error
 }
 
 type campaignRepository struct {
@@ -38,4 +40,9 @@ func (r *campaignRepository) FindByID(id uint) (*entity.Campaign, error) {
 
 func (r *campaignRepository) Create(campaign *entity.Campaign) error {
 	return r.db.Create(campaign).Error
+}
+
+// Tambahan: Update data campaign (buat ubah detail atau nutup campaign)
+func (r *campaignRepository) Update(campaign *entity.Campaign) error {
+	return r.db.Save(campaign).Error
 }
